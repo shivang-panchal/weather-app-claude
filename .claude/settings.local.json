@@ -7,7 +7,8 @@
       "Bash(npm run:*)",
       "mcp__Claude_Preview__preview_start",
       "Bash(npx playwright:*)",
-      "Bash(npm test:*)"
+      "Bash(npm test:*)",
+      "Bash(gh run:*)"
     ]
   }
 }

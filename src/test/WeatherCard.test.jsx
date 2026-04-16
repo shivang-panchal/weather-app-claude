@@ -12,7 +12,9 @@ describe('WeatherCard', () => {
 
   it('renders rounded temperature', () => {
     render(<WeatherCard data={mockWeather} />)
-    expect(screen.getByText('14°C')).toBeInTheDocument()
+    // Temp is split into "14°" and "C" in separate elements in the new design
+    expect(screen.getByText('14°')).toBeInTheDocument()
+    expect(screen.getByText('C')).toBeInTheDocument()
   })
 
   it('renders feels like temperature', () => {

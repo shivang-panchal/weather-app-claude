@@ -6,7 +6,7 @@ import SearchBar from '../components/SearchBar'
 describe('SearchBar', () => {
   it('renders input and search button', () => {
     render(<SearchBar onSearch={vi.fn()} loading={false} />)
-    expect(screen.getByPlaceholderText(/enter city name/i)).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(/search city/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument()
   })
 
@@ -15,7 +15,7 @@ describe('SearchBar', () => {
     const onSearch = vi.fn()
     render(<SearchBar onSearch={onSearch} loading={false} />)
 
-    await user.type(screen.getByPlaceholderText(/enter city name/i), '  London  ')
+    await user.type(screen.getByPlaceholderText(/search city/i), '  London  ')
     await user.click(screen.getByRole('button', { name: /search/i }))
 
     expect(onSearch).toHaveBeenCalledWith('London')
@@ -33,7 +33,7 @@ describe('SearchBar', () => {
 
   it('disables input and button while loading', () => {
     render(<SearchBar onSearch={vi.fn()} loading={true} />)
-    expect(screen.getByPlaceholderText(/enter city name/i)).toBeDisabled()
+    expect(screen.getByPlaceholderText(/search city/i)).toBeDisabled()
     expect(screen.getByRole('button')).toBeDisabled()
   })
 

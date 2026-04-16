@@ -6,23 +6,24 @@ import App from '../App'
 describe('App integration', () => {
   it('renders the title and search bar on load', () => {
     render(<App />)
-    expect(screen.getByText('Weather App')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/enter city name/i)).toBeInTheDocument()
-    expect(screen.getByText(/enter a city above to get started/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(/search city/i)).toBeInTheDocument()
+    expect(screen.getByText(/enter a city name above to get started/i)).toBeInTheDocument()
   })
 
   it('shows weather card and forecast after searching a valid city', async () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.type(screen.getByPlaceholderText(/enter city name/i), 'London')
+    await user.type(screen.getByPlaceholderText(/search city/i), 'London')
     await user.click(screen.getByRole('button', { name: /search/i }))
 
     await waitFor(() => {
       expect(screen.getByText('London')).toBeInTheDocument()
     })
 
-    expect(screen.getByText('14°C')).toBeInTheDocument()
+    // Temp is split into "14°" and "C" by the new design
+    expect(screen.getByText(/14°/)).toBeInTheDocument()
     expect(screen.getByText(/broken clouds/i)).toBeInTheDocument()
     expect(screen.getByText(/5-day forecast/i)).toBeInTheDocument()
   })
@@ -31,7 +32,7 @@ describe('App integration', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.type(screen.getByPlaceholderText(/enter city name/i), 'InvalidCity999')
+    await user.type(screen.getByPlaceholderText(/search city/i), 'InvalidCity999')
     await user.click(screen.getByRole('button', { name: /search/i }))
 
     await waitFor(() => {
@@ -44,13 +45,13 @@ describe('App integration', () => {
     render(<App />)
 
     // First search
-    await user.type(screen.getByPlaceholderText(/enter city name/i), 'London')
+    await user.type(screen.getByPlaceholderText(/search city/i), 'London')
     await user.click(screen.getByRole('button', { name: /search/i }))
     await waitFor(() => expect(screen.getByText('London')).toBeInTheDocument())
 
-    // Second search — results clear during loading
-    await user.clear(screen.getByPlaceholderText(/enter city name/i))
-    await user.type(screen.getByPlaceholderText(/enter city name/i), 'Paris')
+    // Second search
+    await user.clear(screen.getByPlaceholderText(/search city/i))
+    await user.type(screen.getByPlaceholderText(/search city/i), 'Paris')
     await user.click(screen.getByRole('button', { name: /search/i }))
 
     await waitFor(() => expect(screen.getByText('London')).toBeInTheDocument())

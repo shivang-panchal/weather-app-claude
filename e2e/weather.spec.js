@@ -41,9 +41,9 @@ test.describe('Weather App E2E', () => {
   })
 
   test('shows title and search bar on load', async ({ page }) => {
-    await expect(page.getByText('Weather App')).toBeVisible()
-    await expect(page.getByPlaceholder(/enter city name/i)).toBeVisible()
-    await expect(page.getByText(/enter a city above to get started/i)).toBeVisible()
+    await expect(page.getByText(/weathercast/i)).toBeVisible()
+    await expect(page.getByPlaceholder(/search city/i)).toBeVisible()
+    await expect(page.getByText(/enter a city name above to get started/i)).toBeVisible()
   })
 
   test('search button is disabled when input is empty', async ({ page }) => {
@@ -51,12 +51,12 @@ test.describe('Weather App E2E', () => {
   })
 
   test('search button enables when user types a city', async ({ page }) => {
-    await page.getByPlaceholder(/enter city name/i).fill('London')
+    await page.getByPlaceholder(/search city/i).fill('London')
     await expect(page.getByRole('button', { name: /search/i })).toBeEnabled()
   })
 
   test('full search flow — type city, see weather card and forecast', async ({ page }) => {
-    await page.getByPlaceholder(/enter city name/i).fill('London')
+    await page.getByPlaceholder(/search city/i).fill('London')
     await page.getByRole('button', { name: /search/i }).click()
 
     await expect(page.getByText('London').first()).toBeVisible({ timeout: 5000 })
@@ -67,7 +67,7 @@ test.describe('Weather App E2E', () => {
   })
 
   test('shows error for invalid city name', async ({ page }) => {
-    await page.getByPlaceholder(/enter city name/i).fill('xyzinvalidcity999')
+    await page.getByPlaceholder(/search city/i).fill('xyzinvalidcity999')
     await page.getByRole('button', { name: /search/i }).click()
 
     await expect(page.getByText(/not found/i)).toBeVisible({ timeout: 5000 })

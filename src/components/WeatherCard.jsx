@@ -34,7 +34,7 @@ export default function WeatherCard({ data }) {
         </div>
         <div className="bg-white/10 rounded-xl p-3 text-center">
           <p className="text-white/50 text-xs mb-1">Pressure</p>
-          <p className="font-semibold">{main.pressure} hPa</p>
+          <p className="font-semibold text-sm">{main.pressure}<span className="text-white/50 font-normal text-xs"> hPa</span></p>
         </div>
       </div>
     </div>

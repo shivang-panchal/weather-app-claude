@@ -24,7 +24,7 @@ export default function ForecastCard({ forecast }) {
               <span className="w-32 text-sm text-white/70">{label}</span>
               <div className="flex items-center gap-1">
                 <img src={icon} alt={day.weather[0].description} className="w-8 h-8" />
-                <span className="text-sm capitalize text-white/60 hidden sm:block">
+                <span className="text-xs capitalize text-white/60">
                   {day.weather[0].description}
                 </span>
               </div>

@@ -38,46 +38,83 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 px-4 py-12">
-      <div className="max-w-md mx-auto">
-        {/* Title */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Weather App</h1>
-          <p className="text-white/50 text-sm">Search any city to see live weather</p>
+    <div className="relative min-h-screen overflow-x-hidden" style={{ background: '#080812' }}>
+      {/* Background orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+
+      {/* Content */}
+      <div className="relative z-10 min-h-screen px-4 py-12">
+        <div className="max-w-lg mx-auto">
+
+          {/* Header */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-5 text-xs font-medium text-purple-300 tracking-widest uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+              Live Weather
+            </div>
+            <h1
+              className="text-5xl font-bold tracking-tight text-white mb-2"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
+            >
+              Weather<span className="gradient-text">Cast</span>
+            </h1>
+            <p className="text-white/30 text-sm">Search any city for real-time weather</p>
+          </div>
+
+          {/* Search */}
+          <SearchBar onSearch={handleSearch} loading={loading} />
+
+          {/* Loading */}
+          {loading && (
+            <div className="mt-10 flex flex-col items-center gap-3">
+              <div className="flex gap-1.5">
+                {[0, 1, 2].map(i => (
+                  <div
+                    key={i}
+                    className="w-2 h-2 rounded-full bg-purple-400"
+                    style={{ animation: `bounce 1s ease-in-out ${i * 0.15}s infinite` }}
+                  />
+                ))}
+              </div>
+              <p className="text-white/30 text-sm">Fetching weather data...</p>
+            </div>
+          )}
+
+          {/* Error */}
+          {error && (
+            <div className="mt-6 glass rounded-2xl px-5 py-4 flex items-start gap-3">
+              <span className="text-red-400 text-lg mt-0.5">⚠</span>
+              <p className="text-red-300 text-sm">{error}</p>
+            </div>
+          )}
+
+          {/* Results */}
+          {weather && !loading && (
+            <div className="mt-6 flex flex-col gap-4">
+              <WeatherCard data={weather} />
+              {forecast && <ForecastCard forecast={forecast} />}
+            </div>
+          )}
+
+          {/* Empty state */}
+          {!weather && !loading && !error && (
+            <div className="mt-20 text-center">
+              <div className="text-6xl mb-4">🌍</div>
+              <p className="text-white/20 text-sm">Enter a city name above to get started</p>
+            </div>
+          )}
+
         </div>
-
-        {/* Search */}
-        <SearchBar onSearch={handleSearch} loading={loading} />
-
-        {/* Loading */}
-        {loading && (
-          <div className="mt-10 text-center text-white/60 animate-pulse">
-            Fetching weather data...
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <div className="mt-6 bg-red-500/20 border border-red-400/30 text-red-300 rounded-xl px-4 py-3 text-sm text-center">
-            {error}
-          </div>
-        )}
-
-        {/* Results */}
-        {weather && !loading && (
-          <div className="mt-6 flex flex-col gap-4">
-            <WeatherCard data={weather} />
-            {forecast && <ForecastCard forecast={forecast} />}
-          </div>
-        )}
-
-        {/* Empty state */}
-        {!weather && !loading && !error && (
-          <div className="mt-16 text-center text-white/30 text-sm">
-            Enter a city above to get started
-          </div>
-        )}
       </div>
+
+      <style>{`
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); opacity: 0.4; }
+          50% { transform: translateY(-8px); opacity: 1; }
+        }
+      `}</style>
     </div>
   )
 }

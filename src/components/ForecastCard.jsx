@@ -4,10 +4,13 @@ export default function ForecastCard({ forecast }) {
   ).slice(0, 5)
 
   return (
-    <div className="glass-strong rounded-3xl p-5">
+    <div
+      className="rounded-3xl p-5"
+      style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
+    >
       <h3
-        className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4"
-        style={{ fontFamily: 'Outfit, sans-serif' }}
+        className="text-xs font-semibold uppercase tracking-widest mb-4"
+        style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'Outfit, sans-serif' }}
       >
         5-Day Forecast
       </h3>
@@ -25,31 +28,37 @@ export default function ForecastCard({ forecast }) {
           return (
             <div
               key={day.dt}
-              className="flex items-center justify-between rounded-2xl px-4 py-3 transition-all duration-150"
+              className="flex items-center justify-between rounded-2xl px-4 py-3"
               style={{
-                background: isToday ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.03)',
-                border: isToday ? '1px solid rgba(124,58,237,0.25)' : '1px solid rgba(255,255,255,0.05)',
+                background: isToday ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.03)',
+                border: isToday ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(255,255,255,0.06)',
               }}
             >
-              {/* Day */}
               <span
-                className={`w-32 text-sm font-medium ${isToday ? 'text-purple-300' : 'text-white/50'}`}
+                className="w-32 text-sm font-medium"
+                style={{ color: isToday ? '#fff' : 'rgba(255,255,255,0.45)' }}
               >
                 {dayLabel}
               </span>
 
-              {/* Icon + description */}
               <div className="flex items-center gap-2 flex-1">
-                <img src={icon} alt={day.weather[0].description} className="w-8 h-8" />
-                <span className="text-xs text-white/40 capitalize hidden sm:block">
+                <img
+                  src={icon}
+                  alt={day.weather[0].description}
+                  className="w-8 h-8"
+                  style={{ filter: 'grayscale(1) brightness(1.4)' }}
+                />
+                <span className="text-xs capitalize hidden sm:block" style={{ color: 'rgba(255,255,255,0.35)' }}>
                   {day.weather[0].description}
                 </span>
               </div>
 
-              {/* Temp */}
               <span
-                className={`font-bold text-sm ${isToday ? 'text-white' : 'text-white/70'}`}
-                style={{ fontFamily: 'Outfit, sans-serif' }}
+                className="font-bold text-sm"
+                style={{
+                  color: isToday ? '#fff' : 'rgba(255,255,255,0.6)',
+                  fontFamily: 'Outfit, sans-serif',
+                }}
               >
                 {temp}°C
               </span>

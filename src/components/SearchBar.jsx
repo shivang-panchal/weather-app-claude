@@ -12,7 +12,7 @@ export default function SearchBar({ onSearch, loading }) {
   return (
     <form onSubmit={handleSubmit} className="relative flex items-center gap-3">
       {/* Search icon */}
-      <div className="absolute left-4 text-white/30 pointer-events-none">
+      <div className="absolute left-4 pointer-events-none" style={{ color: 'rgba(255,255,255,0.25)' }}>
         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" />
@@ -25,18 +25,18 @@ export default function SearchBar({ onSearch, loading }) {
         onChange={(e) => setCity(e.target.value)}
         placeholder="Search city..."
         disabled={loading}
-        className="flex-1 pl-11 pr-4 py-4 rounded-2xl glass text-white placeholder-white/25 text-sm font-medium focus:outline-none focus:border-purple-500/50 transition-all duration-200 disabled:opacity-40"
-        style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+        className="flex-1 pl-11 pr-4 py-4 rounded-2xl text-sm font-medium focus:outline-none transition-all duration-200 disabled:opacity-40"
+        style={{
+          background: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          color: '#fff',
+        }}
       />
 
       <button
         type="submit"
         disabled={loading || !city.trim()}
-        className="px-6 py-4 rounded-2xl font-semibold text-sm text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
-        style={{
-          background: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
-          boxShadow: '0 4px 20px rgba(124, 58, 237, 0.35)',
-        }}
+        className="bw-btn px-6 py-4 rounded-2xl font-semibold text-sm active:scale-95"
       >
         {loading ? '...' : 'Search'}
       </button>

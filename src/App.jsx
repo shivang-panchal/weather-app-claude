@@ -18,7 +18,6 @@ export default function App() {
     setError(null)
     setWeather(null)
     setForecast(null)
-
     try {
       const [weatherRes, forecastRes] = await Promise.all([
         axios.get(`${BASE_URL}/weather?q=${city}&appid=${API_KEY}&units=metric`),
@@ -38,29 +37,28 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden" style={{ background: '#080812' }}>
-      {/* Background orbs */}
-      <div className="orb orb-1" />
-      <div className="orb orb-2" />
-      <div className="orb orb-3" />
-
-      {/* Content */}
-      <div className="relative z-10 min-h-screen px-4 py-12">
+    <div className="min-h-screen" style={{ background: '#000' }}>
+      <div className="min-h-screen px-4 py-12">
         <div className="max-w-lg mx-auto">
 
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-5 text-xs font-medium text-purple-300 tracking-widest uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-5 text-xs font-medium tracking-widest uppercase"
+              style={{ border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)' }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               Live Weather
             </div>
             <h1
-              className="text-5xl font-bold tracking-tight text-white mb-2"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
+              className="text-5xl font-bold tracking-tight mb-2"
+              style={{ fontFamily: 'Outfit, sans-serif', color: '#fff' }}
             >
-              Weather<span className="gradient-text">Cast</span>
+              Weather<span className="bw-gradient-text">Cast</span>
             </h1>
-            <p className="text-white/30 text-sm">Search any city for real-time weather</p>
+            <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.875rem' }}>
+              Search any city for real-time weather
+            </p>
           </div>
 
           {/* Search */}
@@ -73,20 +71,25 @@ export default function App() {
                 {[0, 1, 2].map(i => (
                   <div
                     key={i}
-                    className="w-2 h-2 rounded-full bg-purple-400"
-                    style={{ animation: `bounce 1s ease-in-out ${i * 0.15}s infinite` }}
+                    className="w-2 h-2 rounded-full bg-white"
+                    style={{ opacity: 0.6, animation: `bwBounce 1s ease-in-out ${i * 0.15}s infinite` }}
                   />
                 ))}
               </div>
-              <p className="text-white/30 text-sm">Fetching weather data...</p>
+              <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.875rem' }}>
+                Fetching weather data...
+              </p>
             </div>
           )}
 
           {/* Error */}
           {error && (
-            <div className="mt-6 glass rounded-2xl px-5 py-4 flex items-start gap-3">
-              <span className="text-red-400 text-lg mt-0.5">⚠</span>
-              <p className="text-red-300 text-sm">{error}</p>
+            <div
+              className="mt-6 rounded-2xl px-5 py-4 flex items-start gap-3"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)' }}
+            >
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>⚠</span>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem' }}>{error}</p>
             </div>
           )}
 
@@ -101,8 +104,10 @@ export default function App() {
           {/* Empty state */}
           {!weather && !loading && !error && (
             <div className="mt-20 text-center">
-              <div className="text-6xl mb-4">🌍</div>
-              <p className="text-white/20 text-sm">Enter a city name above to get started</p>
+              <div className="text-6xl mb-4" style={{ filter: 'grayscale(1)' }}>🌍</div>
+              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.875rem' }}>
+                Enter a city name above to get started
+              </p>
             </div>
           )}
 
@@ -110,8 +115,8 @@ export default function App() {
       </div>
 
       <style>{`
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); opacity: 0.4; }
+        @keyframes bwBounce {
+          0%, 100% { transform: translateY(0); opacity: 0.3; }
           50% { transform: translateY(-8px); opacity: 1; }
         }
       `}</style>
